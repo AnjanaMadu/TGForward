@@ -13,6 +13,8 @@
 
 » Custom captions
 
+» Custom thumbnail (Soon)
+
 » Heroku deployment
 
 ## Deploy to heroku
