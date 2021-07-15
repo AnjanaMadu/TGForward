@@ -1,0 +1,47 @@
+{
+      "name": "Channel Forward",
+      "description": "A script to forward large number of files to another telegram channel",
+      "logo": "https://telegra.ph/file/944a41db18eda321b075a.png",
+   "env": {
+      "API_ID": {
+         "description": "Get API_KEY from my.telegram.org, used for telethon based modules.",
+         "required": true,
+         "value": ""
+      },
+      "API_HASH": {
+         "description": "Get API_HASH from my.telegram.org, used for telethon based modules.",
+         "required": true,
+         "value": ""
+      },
+      "TO_CHANNEL_ID": {
+         "description": "To which channel/group you want to forward files. Enter channel ID",
+         "required": true,
+         "value": ""
+      },
+      "STRING_SESSION": {
+         "description": "Get your telethon string session from here https://replit.com/@AnjanaMa/TGStringSession",
+         "required": true,
+         "value": ""
+      },
+      "FILE_TYPE": {
+         "description": "Enter file type you want to forward. (Files types = docs, music, videos, photos.)",
+         "required": false,
+         "value": ""
+      },
+      "CUSTOM_CAPTION": {
+         "description": "If you want to add custom thumbnail. You should read ReadMe.",
+         "required": false,
+         "value": ""
+      },
+      "FROM_CHANNEL_ID": {
+         "description": "From which channel/group you want to forward files. Enter channel ID",
+         "required": true,
+         "value": ""
+      }
+   },
+   "repository": "https://github.com/Anjana-Ma/ChannelForward",
+   "buildpacks": [
+    {
+      "url": "heroku/python"
+  }]
+}
