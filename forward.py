@@ -1,9 +1,9 @@
 # ::: WARNING :::
-# THIS IS NOT A KANGED SCRIPT AND THIS IS FULLY CODED BY @ANJANA-MA.
+# THIS IS NOT A KANGED SCRIPT AND THIS IS FULLY CODED BY @ANJANAMADU.
 # @AmarnathCJD HE IS HELP ME TO MAKE THIS SCRIPT. 
 # ALRIGHTS RESERVED.
 
-import asyncio
+import asyncio, sys
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from telethon.tl.types import InputMessagesFilterDocument, InputMessagesFilterMusic, InputMessagesFilterVideo, InputMessagesFilterPhotos
@@ -39,8 +39,10 @@ async def forward():
     mode=InputMessagesFilterPhotos
   elif file_type == "all":
     print("Now forwarding all messages")
-  else:
-    print("Now forwarding all messages")
+    mode=None
+  elif not file_type:
+    print("No file type given. System exiting...")
+    sys.exit()
   async for msg in bot.iter_messages(from_chat, reverse=True, filter=mode):
       try:
         await asyncio.sleep(2)
