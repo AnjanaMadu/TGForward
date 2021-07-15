@@ -19,7 +19,7 @@
          "value": ""
       },
       "STRING_SESSION": {
-         "description": "Get your telethon string session from here https://replit.com/@AnjanaMa/TGStringSession",
+         "description": "Get your telethon string session from here https://replit.com/@AnjanaMadu/GenerateStringSession",
          "required": true,
          "value": ""
       },
