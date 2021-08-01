@@ -38,3 +38,20 @@ If You Try to Forward Very Large Number of Files Ur Telegram Account will be Ban
 <i>Screen Shot After Sending File</i>
 
 [![Pic2](https://telegra.ph/file/54ff54f80e8819a20d59a.png)](https://github.com/Anjana-Ma/TGForward#examples)
+
+## License
+```TGForward, An Telegram Bot Project
+Copyright (c) 2021 Anjana Madu and Amarnath CDJ <https://github.com/AnjanaMadu>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>```
