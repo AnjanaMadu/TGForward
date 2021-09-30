@@ -5,17 +5,12 @@ If You Try to Forward Very Large Number of Files Ur Telegram Account will be Ban
 
 ## Special Features
 
-» Light weight
-
-» Easy to use
-
-» Remove forward tag
-
-» Custom captions
-
-» Custom thumbnail (Soon)
-
-» Heroku deployment
+- Light weight
+- Easy to use
+- Remove forward tag
+- Custom captions
+- Custom thumbnail
+- Heroku deployment
 
 ## Deploy to heroku
 
@@ -25,9 +20,8 @@ If You Try to Forward Very Large Number of Files Ur Telegram Account will be Ban
 
 ## Custom captions to files
 
-» Use only HTML tags
-
-» Do not use "BR" HTML tag to get new line. If you want to get new line just get new line by clicking ENTER button.
+- Use only HTML tags
+- Do not use "BR" HTML tag to get new line. If you want to get new line just get new line by clicking ENTER button.
 
 ### <i>Examples</i>
 
@@ -38,6 +32,13 @@ If You Try to Forward Very Large Number of Files Ur Telegram Account will be Ban
 <i>Screen Shot After Sending File</i>
 
 [![Pic2](https://telegra.ph/file/54ff54f80e8819a20d59a.png)](https://github.com/Anjana-Ma/TGForward#examples)
+
+## Custom thumbnail to file.
+
+- First go to [**@vTelegraphBot**](https://telegram.me/vTelegraphBot)
+- Now select your thumbnail from images and send it as **Document** to bot.
+- Then bot will send URL for that file.
+- Set that URL to `CUSTOM_THUMBNAIL` config var.
 
 ## License
 ```
