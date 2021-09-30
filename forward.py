@@ -38,7 +38,6 @@ except:
 
 bot = TelegramClient(StringSession(tgsession), api_id, api_hash)
 bot.start()
-bot.parse_mode = 'html'
 
 if thumb_url:
   if not 'https://' in thumb_url:
@@ -48,12 +47,9 @@ if thumb_url:
   with open('thumb.jpg', 'wb') as f:
     f.write(thumb.content)
     f.close()
+  print('Thumbnail Downloaded!')
 
-print('''
-—————————————————————————————————————
------------| Bot Started |-----------
-—————————————————————————————————————
-''')
+print('-----------| Bot Started |-----------')
 
 async def forward():
   mode = None
@@ -69,7 +65,6 @@ async def forward():
     mode = None
 
   async for msg in bot.iter_messages(from_chat, reverse=True, max_id=1, filter=mode):
-    print(msg)
     try:
       if msg:
         if custom_caption and thumb_url:
