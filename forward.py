@@ -73,13 +73,13 @@ async def forward():
 
   async for msg in user.iter_messages(from_chat, reverse=True, filter=mode):
     try:
-      if msg:
-        if custom_caption:
+      if not msg is None:
+        if custom_caption and thumb_url:
+          await bot.send_file(to_chat, file=msg.media, thumb='thumb.jpg', caption=custom_caption)
+        elif custom_caption:
           await bot.send_file(to_chat, file=msg.media, caption=custom_caption)
         elif thumb_url:
           await bot.send_file(to_chat, file=msg.media, thumb='thumb.jpg')
-        elif custom_caption and thumb_url:
-          await bot.send_file(to_chat, file=msg.media, thumb='thumb.jpg', caption=custom_caption)
         else:
           await bot.send_file(to_chat, file=msg.media)
     except FloodError as e:
