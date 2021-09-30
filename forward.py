@@ -69,6 +69,7 @@ async def forward():
     mode = None
 
   async for msg in bot.iter_messages(from_chat, reverse=True, max_id=1, filter=mode):
+    print(msg)
     try:
       if msg:
         if custom_caption and thumb_url:
