@@ -24,7 +24,6 @@ from os import environ
 
 try:
   tgsession = environ.get("STRING_SESSION")
-  bot_token = environ.get("BOT_TOKEN")
   api_id = int(environ.get("API_ID"))
   api_hash = environ.get("API_HASH")
   from_chat = int(environ.get("FROM_CHANNEL_ID"))
@@ -37,10 +36,8 @@ except:
   print("CONFIG VARS ARE WRONG. SYSTEM EXITING..")
   sys.exit()
 
-user = TelegramClient(StringSession(tgsession), api_id, api_hash)
-bot = TelegramClient('TGAutoForward', api_id, api_hash)
-user.start()
-bot.start(bot_token=bot_token)
+bot = TelegramClient(StringSession(tgsession), api_id, api_hash)
+bot.start()
 bot.parse_mode = 'html'
 
 if thumb_url:
@@ -71,9 +68,9 @@ async def forward():
   elif file_type == "all":
     mode = None
 
-  async for msg in user.iter_messages(from_chat, reverse=True, filter=mode):
+  async for msg in bot.iter_messages(from_chat, reverse=True, filter=mode):
     try:
-      if not msg is None:
+      if msg:
         if custom_caption and thumb_url:
           await bot.send_file(to_chat, file=msg.media, thumb='thumb.jpg', caption=custom_caption)
         elif custom_caption:
@@ -85,5 +82,5 @@ async def forward():
     except FloodError as e:
       asyncio.sleep(e.seconds)
 
-user.loop.run_until_complete(forward())
-user.run_until_disconnected()
+bot.loop.run_until_complete(forward())
+bot.run_until_disconnected()
