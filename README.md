@@ -19,7 +19,7 @@ If You Try to Forward Very Large Number of Files Ur Telegram Account will be Ban
 
 ## Deploy to heroku
 
-<i>Click below button. ASAP</i>
+<i>Click below button.</i>
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
