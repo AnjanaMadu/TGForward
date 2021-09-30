@@ -44,13 +44,19 @@ bot.start(bot_token=bot_token)
 bot.parse_mode = 'html'
 
 if thumb_url:
-  if 'legra' not in thumb_url:
+  if not 'https://' in thumb_url:
     print("PLEASE REFER README AGAIN!")
     sys.exit()
   thumb = requests.get(thumb_url)
   with open('thumb.jpg', 'wb') as f:
     f.write(thumb.content)
     f.close()
+
+print('''
+—————————————————————————————————————
+-----------| Bot Started |-----------
+—————————————————————————————————————
+''')
 
 async def forward():
   mode = None
@@ -67,14 +73,15 @@ async def forward():
 
   async for msg in user.iter_messages(from_chat, reverse=True, filter=mode):
     try:
-      if custom_caption:
-        await bot.send_file(to_chat, file=msg.media, caption=custom_caption)
-      elif thumb_url:
-        await bot.send_file(to_chat, file=msg.media, thumb='thumb.jpg')
-      elif custom_caption and thumb_url:
-        await bot.send_file(to_chat, file=msg.media, thumb='thumb.jpg', caption=custom_caption)
-      else:
-        await bot.send_file(to_chat, file=msg.media)
+      if msg:
+        if custom_caption:
+          await bot.send_file(to_chat, file=msg.media, caption=custom_caption)
+        elif thumb_url:
+          await bot.send_file(to_chat, file=msg.media, thumb='thumb.jpg')
+        elif custom_caption and thumb_url:
+          await bot.send_file(to_chat, file=msg.media, thumb='thumb.jpg', caption=custom_caption)
+        else:
+          await bot.send_file(to_chat, file=msg.media)
     except FloodError as e:
       asyncio.sleep(e.seconds)
 
