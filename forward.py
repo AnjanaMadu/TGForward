@@ -44,7 +44,7 @@ bot.start(bot_token=bot_token)
 bot.parse_mode = 'html'
 
 if thumb_url:
-  if 'telegra' not in thumb_url:
+  if 'legra' not in thumb_url:
     print("PLEASE REFER README AGAIN!")
     sys.exit()
   thumb = requests.get(thumb_url)
