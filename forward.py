@@ -15,52 +15,68 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>'''
 
 import asyncio, sys
+import os, requests
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from telethon.tl.types import InputMessagesFilterDocument, InputMessagesFilterMusic, InputMessagesFilterVideo, InputMessagesFilterPhotos
 from telethon.errors import FloodError
-from config import heroku
+from os import environ
 
-from_chat = heroku.FROM_CHANNEL_ID
-to_chat = heroku.TO_CHANNEL_ID
-custom_caption = heroku.CUSTOM_CAPTION
-file_type = heroku.FILE_TYPE
-api_id = heroku.API_ID
-api_hash = heroku.API_HASH
+try:
+  tgsession = environ.get("STRING_SESSION")
+  bot_token = environ.get("BOT_TOKEN")
+  api_id = int(environ.get("API_ID"))
+  api_hash = environ.get("API_HASH")
+  from_chat = int(environ.get("FROM_CHANNEL_ID"))
+  to_chat = int(environ.get("TO_CHANNEL_ID"))
+  custom_caption = environ.get("CUSTOM_CAPTION")
+  thumb_url = environ.get("CUSTOM_THUMBNAIL")
+  file_type = environ.get("FILE_TYPE")
+except:
+  print("OOOPS! PLEASE CHECK CONFIG VARS AND READ THE README AGAIN.")
+  print("CONFIG VARS ARE WRONG. SYSTEM EXITING..")
+  sys.exit()
 
-bot = TelegramClient(StringSession(heroku.STRING_SESSION), api_id, api_hash)
-bot.start()
+user = TelegramClient(StringSession(tgsession), api_id, api_hash)
+bot = TelegramClient('TGAutoForward', api_id, api_hash)
+user.start()
+bot.start(bot_token=bot_token)
+bot.parse_mode = 'html'
 
-print("Please wait starting forwarding")
-print("Start auto forwarding....")
+if thumb_url:
+  if 'telegra' not in thumb_url:
+    print("PLEASE REFER README AGAIN!")
+    sys.exit()
+  thumb = requests.get(thumb_url)
+  with open('thumb.jpg', 'wb') as f:
+    f.write(thumb.content)
+    f.close()
 
 async def forward():
   mode = None
   if file_type == "docs":
-    print("Now forwarding only documents")
     mode = InputMessagesFilterDocument
   elif file_type == "music":
-    print("Now forwarding only music")
-    mode=InputMessagesFilterMusic
+    mode = InputMessagesFilterMusic
   elif file_type == "videos":
-    print("Now forwarding only videos")
-    mode=InputMessagesFilterVideo
+    mode = InputMessagesFilterVideo
   elif file_type == "photos":
-    print("Now forwarding only photos")
-    mode=InputMessagesFilterPhotos
+    mode = InputMessagesFilterPhotos
   elif file_type == "all":
-    print("Now forwarding all messages")
-    mode=None
-  elif not file_type:
-    print("No file type given. System exiting...")
-    sys.exit()
-  async for msg in bot.iter_messages(from_chat, reverse=True, filter=mode):
-      try:
-        await asyncio.sleep(2)
-        bot.parse_mode = 'html'
-        k = await bot.send_file(to_chat, file=msg.media, caption=custom_caption)
-      except FloodError as e:
-        asyncio.sleep(e.seconds)
+    mode = None
 
-bot.loop.run_until_complete(forward())
-bot.run_until_disconnected()
+  async for msg in user.iter_messages(from_chat, reverse=True, filter=mode):
+    try:
+      if custom_caption:
+        await bot.send_file(to_chat, file=msg.media, caption=custom_caption)
+      elif thumb_url:
+        await bot.send_file(to_chat, file=msg.media, thumb='thumb.jpg')
+      elif custom_caption and thumb_url:
+        await bot.send_file(to_chat, file=msg.media, thumb='thumb.jpg', caption=custom_caption)
+      else:
+        await bot.send_file(to_chat, file=msg.media)
+    except FloodError as e:
+      asyncio.sleep(e.seconds)
+
+user.loop.run_until_complete(forward())
+user.run_until_disconnected()
