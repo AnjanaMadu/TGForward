@@ -21,7 +21,7 @@ If You Try to Forward Very Large Number of Files Ur Telegram Account will be Ban
 
 <i>Click below button.</i>
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/AnjanaMadu/TGForward)
 
 ## Custom captions to files
 
@@ -33,11 +33,11 @@ If You Try to Forward Very Large Number of Files Ur Telegram Account will be Ban
 
 <i>Screen Shot of Heroku Var</i>
 
-[![Pic1](https://telegra.ph/file/d696aa4fdf938624eb7bf.png)](https://github.com/Anjana-Ma/TGForward#examples)
+[![Pic1](https://telegra.ph/file/d696aa4fdf938624eb7bf.png)](https://github.com/AnjanaMadu/TGForward#examples)
 
 <i>Screen Shot After Sending File</i>
 
-[![Pic2](https://telegra.ph/file/54ff54f80e8819a20d59a.png)](https://github.com/Anjana-Ma/TGForward#examples)
+[![Pic2](https://telegra.ph/file/54ff54f80e8819a20d59a.png)](https://github.com/AnjanaMadu/TGForward#examples)
 
 ## License
 ```
