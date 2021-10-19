@@ -39,7 +39,6 @@
          "value": ""
       }
    },
-   "repository": "https://github.com/Anjana-Ma/ChannelForward",
    "buildpacks": [
     {
       "url": "heroku/python"
