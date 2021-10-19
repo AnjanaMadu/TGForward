@@ -14,53 +14,58 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>'''
 
-import asyncio, sys
+import os
+import sys
+import asyncio
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from telethon.tl.types import InputMessagesFilterDocument, InputMessagesFilterMusic, InputMessagesFilterVideo, InputMessagesFilterPhotos
 from telethon.errors import FloodError
-from config import heroku
 
-from_chat = heroku.FROM_CHANNEL_ID
-to_chat = heroku.TO_CHANNEL_ID
-custom_caption = heroku.CUSTOM_CAPTION
-file_type = heroku.FILE_TYPE
-api_id = heroku.API_ID
-api_hash = heroku.API_HASH
+API_ID = int(os.environ.get("API_ID"))
+API_HASH = os.environ.get("API_HASH")
+STRING_SESSION = os.environ.get("STRING_SESSION")
+FROM_CHANNEL_ID = int(os.environ.get("FROM_CHANNEL_ID"))
+TO_CHANNEL_ID = int(os.environ.get("TO_CHANNEL_ID"))
+CUSTOM_CAPTION = os.environ.get("CUSTOM_CAPTION", None)
+FILE_TYPE = os.environ.get("FILE_TYPE", None)
 
-bot = TelegramClient(StringSession(heroku.STRING_SESSION), api_id, api_hash)
+bot = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 bot.start()
+bot.parse_mode = 'html'
 
 print("Please wait starting forwarding")
 print("Start auto forwarding....")
 
 async def forward():
   mode = None
-  if file_type == "docs":
+  if FILE_TYPE == "docs":
     print("Now forwarding only documents")
     mode = InputMessagesFilterDocument
-  elif file_type == "music":
+  elif FILE_TYPE == "music":
     print("Now forwarding only music")
-    mode=InputMessagesFilterMusic
-  elif file_type == "videos":
+    mode = InputMessagesFilterMusic
+  elif FILE_TYPE == "videos":
     print("Now forwarding only videos")
-    mode=InputMessagesFilterVideo
-  elif file_type == "photos":
+    mode = InputMessagesFilterVideo
+  elif FILE_TYPE == "photos":
     print("Now forwarding only photos")
-    mode=InputMessagesFilterPhotos
-  elif file_type == "all":
+    mode = InputMessagesFilterPhotos
+  elif FILE_TYPE == "all":
     print("Now forwarding all messages")
-    mode=None
-  elif not file_type:
+    mode = None
+  elif not FILE_TYPE:
     print("No file type given. System exiting...")
     sys.exit()
-  async for msg in bot.iter_messages(from_chat, reverse=True, filter=mode):
+  async for msg in bot.iter_messages(FROM_CHANNEL_ID, reverse=True, filter=mode):
       try:
+        if CUSTOM_CAPTION:
+          await bot.send_file(TO_CHANNEL_ID, file=msg.media, caption=CUSTOM_CAPTION)
+        else:
+          await bot.send_file(TO_CHANNEL_ID, file=msg.media)
         await asyncio.sleep(2)
-        bot.parse_mode = 'html'
-        k = await bot.send_file(to_chat, file=msg.media, caption=custom_caption)
       except FloodError as e:
-        asyncio.sleep(e.seconds)
+        await asyncio.sleep(e.seconds)
 
 bot.loop.run_until_complete(forward())
 bot.run_until_disconnected()
