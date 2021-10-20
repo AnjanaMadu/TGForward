@@ -1,4 +1,4 @@
-'''TGForward, An Telegram Bot Project
+'''TGForward, A Telegram Bot Project
 Copyright (c) 2021 Anjana Madu and Amarnath CDJ <https://github.com/AnjanaMadu>
 
 This program is free software: you can redistribute it and/or modify
